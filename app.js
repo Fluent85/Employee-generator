@@ -8,13 +8,33 @@ const Intern = require("./lib/Intern.js");
 let managersHTML = "";
 let engineersHTML = "";
 let internsHTML = "";
+// templateHTML =  fs.readfile templatehtml
 
 function writeHtml(){
+    fs.readFile('template.html', 'utf-8', (err, data) => {
+        if (err) throw err;
+        templateHTML = data;
+         // Use JS Replace "{{managerRow}}" with managersHTML
+         console.log(templateHTML);
+         templateHTML = templateHTML.replace('{{managerRow}}', managersHTML);
 
-    // templateHTML =  fs.readfile templatehtml
-    // Use JS Replace "{{managerRow}}" with managersHTML
-    // Same Replace for Engineers
-    // Same Replace for Interns
+        // Same Replace for Engineers
+        templateHTML = templateHTML.replace('{{engineerRow}}', engineersHTML);
+        // Same Replace for Interns
+        templateHTML = templateHTML.replace('{{internRow}}', internsHTML);
+        fs.writeFile('employee.html', templateHTML, (err) => {
+            if (err) throw err;
+            console.log('The file has been saved!');
+          });
+
+
+
+      });
+
+    
+
+    
+   
     // with new HTML...
     // write new team.html fs.writefile
 
@@ -104,25 +124,23 @@ function generateEngineer() {
             name: "engineerGithub"
         }
     ]).then(function ({engineerName, engineerID, engineerEmail, engineerGithub}) {
+
+        //CREATE CARD JUST LIKE MGR
+        engineersHTML = engineersHTML + `<div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+                <div class="card-body" style="background-color: gold;">
+                  <h5 class="card-title">${engineerName} ${role}</h5>
+                  <p class="card-text"><i class="fas fa-coffee"></i> Manager</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>ID</strong>: ${engineerID}</li>
+                  <li class="list-group-item"><strong>Email</strong>: ${engineerEmail}</li>
+                  <li class="list-group-item"><strong>Office Number</strong>: ${engineerGithub}</li>
+                </ul>
+        </div>
+    </div>`;
         generateTeamMember();
-        fs.appendFile("output/./team.html", `
-        <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                        <div class="card-body" style="background-color: royalblue;">
-                          <h5 class="card-title">${engineerName}</h5>
-                          <p class="card-text"><i class="fas fa-flask"></i> Engineer</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><strong>ID</strong>: ${engineerID}</li>
-                          <li class="list-group-item"><strong>Email</strong>: ${engineerEmail}</li>
-                          <li class="list-group-item"><strong>GitHub</strong>: ${engineerGithub}</li>
-                        </ul>
-            </div>
-                </div>`, 
-                (err) => {
-                    if (err) 
-                        throw err;
-            })
+    
     })
 }
 
@@ -147,25 +165,23 @@ function generateIntern() {
             name: "internSchool"
         }
     ]).then(function ({internName, internID, internEmail, internSchool}) {
-        generateTeamMember();
-        fs.appendFile("output/./team.html", `
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                        <div class="card-body" style="background-color: crimson;">
-                          <h5 class="card-title">${internName}</h5>
-                          <p class="card-text"><i class="fas fa-graduation-cap"></i> Intern</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><strong>ID</strong>: ${internID}</li>
-                          <li class="list-group-item"><strong>Email</strong>: ${internEmail}</li>
-                          <li class="list-group-item"><strong>School</strong>: ${internSchool}</li>
-                        </ul>
+        
+         //CREATE CARD JUST LIKE MGR
+         internsHTML = internsHTML + `<div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+                <div class="card-body" style="background-color: gold;">
+                  <h5 class="card-title">${internName} ${role}</h5>
+                  <p class="card-text"><i class="fas fa-coffee"></i> Manager</p>
                 </div>
-            </div>`, 
-                (err) => {
-                    if (err) 
-                        throw err;
-            })
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>ID</strong>: ${internID}</li>
+                  <li class="list-group-item"><strong>Email</strong>: ${internEmail}</li>
+                  <li class="list-group-item"><strong>Office Number</strong>: ${internSchool}</li>
+                </ul>
+        </div>
+    </div>`;
+        generateTeamMember();
+        
     })
 }
 
@@ -174,39 +190,3 @@ generateManager();
 
 
 
-
-
-        // inquirer.prompt([
-//     {
-//         type: "input",
-//         message: "What is your name?",
-//         name: "name"
-//     },
-//     {
-//         type: "input",
-//         message: "What is your ID?",
-//         name: "id"
-//     },
-//     {
-//         type: "input",
-//         message: "What is your title?",
-//         name: "title"
-//     },
-//     {
-//         type: "input",
-//         message: "What is your email?",
-//         name: "email"
-//     },
-//     {
-//         type: "input",
-//         message: "What is your role?",
-//         name: "role"
-//     },
-// ]).then(function(response){
-    
-//     var person = new Employee(response.name, response.id, response.title, response.email, response.role);
-//     console.log(person)
-// })
-
-
-// Make a switch statement
