@@ -13,7 +13,7 @@ let internsHTML = "";
 function writeHtml(){
     fs.readFile('template.html', 'utf-8', (err, data) => {
         if (err) throw err;
-        templateHTML = data;
+        let templateHTML = data;
          // Use JS Replace "{{managerRow}}" with managersHTML
          console.log(templateHTML);
          templateHTML = templateHTML.replace('{{managerRow}}', managersHTML);
@@ -164,7 +164,7 @@ function generateIntern() {
             message: "What is your intern's school?",
             name: "internSchool"
         }
-    ]).then(function ({internName, internID, internEmail, internSchool}) {
+    ]).then(function ({internName, internID, internEmail, internSchool, role}) {
         
          //CREATE CARD JUST LIKE MGR
          internsHTML = internsHTML + `<div class="col-md-4">
