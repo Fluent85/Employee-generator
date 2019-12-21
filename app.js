@@ -129,7 +129,7 @@ function generateEngineer() {
         engineersHTML = engineersHTML + `<div class="col-md-4">
         <div class="card" style="width: 18rem;">
                 <div class="card-body" style="background-color: gold;">
-                  <h5 class="card-title">${engineerName} ${role}</h5>
+                  <h5 class="card-title">${engineerName}</h5>
                   <p class="card-text"><i class="fas fa-coffee"></i> Manager</p>
                 </div>
                 <ul class="list-group list-group-flush">
